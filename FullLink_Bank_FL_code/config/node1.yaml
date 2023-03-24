@@ -1,0 +1,118 @@
+# Copyright 2022 Primihub
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+version: 1.0
+
+node: "node1"
+#location: "www.primihub.server.com"
+#use_tls: true
+
+location: "127.0.0.1"
+use_tls: false
+
+grpc_port: 50051
+
+# Use redis by default, set `use_redis: False` to use libp2p
+redis_meta_service:
+  redis_addr: "127.0.0.1:6379"
+  use_redis: True
+  redis_password: "primihub"
+
+#certificate:
+#  root_ca: "data/cert/ca.crt"
+#  key: "data/cert/node0.key"
+#  cert: "data/cert/node0.crt"
+
+# load datasets
+datasets:
+  # ABY3 LR test case datasets
+  - description: "train_party_1"
+    model: "csv"
+    source: "data/train_party_1.csv"
+  - description: "test_party_1"
+    model: "csv"
+    source: "data/test_party_1.csv"
+
+  # MNIST test case datasets
+  - description: "test_party_1_self"
+    model: "csv"
+    source: "data/falcon/dataset/MNIST/input_1"
+  - description: "test_party_1_next"
+    model: "csv"
+    source: "data/falcon/dataset/MNIST/input_2"
+
+  # PIR test case dataset
+  - description: "pir_server_data"
+    model: "csv"
+    source: "data/pir_server.csv"
+
+  # keyword PIR test case dataset
+  - description: "keyword_pir_server_data"
+    model: "csv"
+    source: "data/keyword_pir_server.csv"
+
+  # PSI test case dataset
+  - description: "psi_server_data"
+    model: "csv"
+    source: "data/server_e.csv"
+
+  - description: "psi_server_data_db"
+    model: "sqlite"
+    table_name: "psi_server_data"
+    source: "data/server_e.db3"
+
+  #  FL xgb test case datasets
+  - description: "label_dataset"
+    model: "csv"
+    source: "data/FL/wisconsin_host.data"
+  - description: "test_dataset"
+    model: "csv"
+    source: "data/FL/wisconsin_test.data"
+  - description: "breast_1"
+    model: "csv"
+    source: "data/FL/wisconsin.data"
+  - description: "homo_lr_test"
+    model: "csv"
+    source: "data/FL/homo_lr_test.data"
+
+  # FL homo lr test case datasets
+  - description: "train_homo_lr_host"
+    model: "csv"
+    source: "data/FL/homo_lr/train/train_breast_cancer_host.csv"
+  - description: "test_homo_lr"
+    model: "csv"
+    source: "data/FL/homo_lr/test_breast_cancer.csv"
+
+  - description: "train_hetero_xgb_host"
+    model: "csv"
+    source: "data/FL/hetero_xgb/train/train_breast_cancer_host.csv"
+
+  - description: "test_hetero_xgb_host"
+    model: "csv"
+    source: "data/FL/hetero_xgb/test/test_breast_cancer_host.csv"
+
+localkv:
+  model: "leveldb"
+  path: "./localdb/node1"
+
+# p2p paramaters
+p2p:
+  bootstrap_nodes:
+    - "/ip4/127.0.0.1/tcp/4001/ipfs/QmaoqnKLY74VdY4P4Ujqyja3eZHy9xX7Q3tQaLWLcvuqHp"
+    - "/ip4/127.0.0.1/tcp/4001/ipfs/QmdSyhb8eR9dDSR5jjnRoTDBwpBCSAjT7WueKJ9cQArYoA"
+  multi_addr: "/ip4/127.0.0.1/tcp/8887"
+  dht_get_value_timeout:  60
+
+notify_server: 0.0.0.0:6667

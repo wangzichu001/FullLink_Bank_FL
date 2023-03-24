@@ -1,0 +1,37 @@
+# --extra-index-url https://download.pytorch.org/whl/cpu
+
+pyarrow==6.0.1
+pandas
+pytest
+numpy
+cloudpickle
+pyzmq
+bitarray
+mmh3
+
+grpcio==1.43.0
+grpcio-tools==1.43.0
+protobuf==3.20.0
+
+pydantic
+sphinx
+scikit-learn==1.1.1
+phe==1.5.0
+
+mysql-connector-python
+loguru
+gevent
+redis
+ray==2.2.0
+transformers
+requests
+line_profiler
+matplotlib
+#tensorflow==2.11.0
+#tensorflow-federated==0.49.0
+dp-accounting==0.3.0
+modin
+
+# torch==1.13.1+cpu
+# torchvision==0.14.1+cpu
+# torchaudio==0.13.1+cpu

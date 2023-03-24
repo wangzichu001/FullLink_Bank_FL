@@ -1,0 +1,82 @@
+package(default_visibility = ["//visibility:public",],)
+# load("//bazel:prim.bzl", "COPTS", "PYX_COPTS", "PYX_SRCS", "copy_to_workspace")
+
+config_setting(
+    name = "msvc-cl",
+    flag_values = {"@bazel_tools//tools/cpp:compiler": "msvc-cl"},
+)
+
+config_setting(
+    name = "clang-cl",
+    flag_values = {"@bazel_tools//tools/cpp:compiler": "clang-cl"},
+)
+
+config_setting(
+    name = "opt",
+    values = {"compilation_mode": "opt"},
+)
+
+config_setting(
+    name = "wolfssl",
+    values = {"define": "ssl=wolfssl"},
+)
+
+config_setting(
+   name = "openssl",
+   values = {"define": "ssl=openssl"},
+)
+
+config_setting(
+   name = "macos-build",
+   values = {"define": "macos-build=true"},
+)
+
+config_setting(
+   name = "microsoft-apsi",
+   values = {"define": "microsoft-apsi=true"},
+)
+
+config_setting(
+    name = "aarch64",
+    values = {"define": "cpu_arch=aarch64"},
+)
+
+config_setting(
+    name = "x86_64",
+    values = {"define": "cpu_arch=x86_64"},
+)
+config_setting(
+    name = "darwin_x86_64",
+    values = {"define": "cpu_arch=darwin_x86_64"},
+)
+
+config_setting(
+    name = "enable_mysql_driver",
+    values = {"define": "enable_mysql_driver=true"},
+)
+
+LINK_PYTHON_OPTS = PLACEHOLDER-PYTHON3.X-CONFIG
+
+cc_binary(
+    name = "py_main",
+    linkopts = LINK_PYTHON_OPTS,
+    deps = [
+        "//src/primihub/executor:py_executor",
+    ]
+)
+
+cc_binary(
+    name = "node",
+    linkopts = LINK_PYTHON_OPTS,
+    deps = [
+        "//src/primihub/node:node_impl",
+    ],
+)
+
+cc_binary(
+    name = "cli",
+    deps = [
+        "//src/primihub/cli:cli_impl",
+    ],
+)
+
